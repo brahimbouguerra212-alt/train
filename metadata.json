@@ -1,0 +1,6 @@
+{
+  "name": "KineticLab — Scientific Exercise & Strength Academy",
+  "description": "Master human biology, exercise science, muscle hypertrophy, and powerlifting from zero to advanced with an interactive Duolingo-style learning path and AI science tutor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

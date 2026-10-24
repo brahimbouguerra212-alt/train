@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "User Profile",
+      "description": "User profile metadata for registered students",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID"
+        },
+        "email": {
+          "type": "string",
+          "description": "The student's Google account email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The student's display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Profile avatar URL"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account registration timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last profile update timestamp"
+        }
+      },
+      "required": ["userId", "email"]
+    },
+    "userProgress": {
+      "title": "User Progress",
+      "description": "Student exercise science progress, assessment mastery scores, and spaced repetition queues",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID"
+        },
+        "xp": {
+          "type": "number",
+          "description": "Total earned experience points"
+        },
+        "streak": {
+          "type": "number",
+          "description": "Current consecutive study streak days"
+        },
+        "gems": {
+          "type": "number",
+          "description": "Earned mastery gems"
+        },
+        "currentLessonId": {
+          "type": "string",
+          "description": "Current active lesson ID"
+        },
+        "completedLessonIds": {
+          "type": "array",
+          "description": "List of mastered lesson IDs (>=85% score)"
+        },
+        "lessonScores": {
+          "type": "object",
+          "description": "Mapping of lesson ID to highest assessment percentage"
+        },
+        "lessonAttempts": {
+          "type": "object",
+          "description": "Mapping of lesson ID to total quiz attempts"
+        },
+        "conceptMastery": {
+          "type": "object",
+          "description": "Fine-grained concept mastery records"
+        },
+        "reviewQueue": {
+          "type": "array",
+          "description": "SM-2 spaced repetition items scheduled for review"
+        },
+        "mistakeBank": {
+          "type": "array",
+          "description": "Targeted remediation questions and misconception history"
+        },
+        "savedNotes": {
+          "type": "array",
+          "description": "User notebook entries for lessons"
+        },
+        "selfExplanationNotes": {
+          "type": "object",
+          "description": "Learner's own words explanations per lesson"
+        },
+        "flaggedCitations": {
+          "type": "array",
+          "description": "Reported scientific citations or broken links"
+        },
+        "dailyGoalMinutes": {
+          "type": "number",
+          "description": "Daily study time target in minutes"
+        },
+        "dailyGoalXp": {
+          "type": "number",
+          "description": "Daily XP target"
+        },
+        "todayXp": {
+          "type": "number",
+          "description": "XP earned today"
+        },
+        "lastActiveDate": {
+          "type": "string",
+          "description": "Last active calendar date (YYYY-MM-DD)"
+        },
+        "soundEnabled": {
+          "type": "boolean",
+          "description": "Sound effects toggle preference"
+        },
+        "theme": {
+          "type": "string",
+          "description": "Theme preference ('light' | 'dark')"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last cloud sync ISO timestamp"
+        }
+      },
+      "required": ["userId", "completedLessonIds", "lessonScores"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "userProfile",
+      "description": "Stores user profile data accessible only by the owner"
+    },
+    "/users/{userId}/progress/data": {
+      "schema": "userProgress",
+      "description": "Stores student learning progress document, strictly accessible and updatable only by the authenticated owner"
+    }
+  }
+}
